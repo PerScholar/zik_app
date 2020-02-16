@@ -1,24 +1,27 @@
 class Song
-attr_accessor :rank, :title, : band, :details, :writers, :producers, :release_date
-@@songs = []
+  attr_accessor :details#,:rank, :title, :band,  :writers, :producers, :release_date
 
-def instantiate_from_hash(hash)
-  s = Song.new
-  hash.each { |k,v|
-  s.send("#{k=}",v)
-}
-s.save
-end
+  @@songs = []
+  def self.instantiate_from_hash(hash)
+    s = Song.new
+    hash.each do |key, value|
+      #puts "#{key}="
+      #puts value
+      s.send("#{key}=", value)
+    end
+    s.save
+    #puts s
+    #return s
+  end
 
-def save
-  @@songs << self
-  self
-end
+  def self.songs
+    @@songs
+  end
 
-def Song.songs
-  @@songs
-end
-
+  def save
+    @@songs << self
+    self
+  end
 
 
 

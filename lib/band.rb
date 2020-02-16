@@ -5,7 +5,7 @@ class Band
   def initialize(name)
     
 
-
+  end
 
 
 
