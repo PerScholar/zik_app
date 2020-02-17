@@ -4,9 +4,7 @@ class Song
   @@songs = []
   def self.instantiate_from_hash(hash)
     s = Song.new
-        hash.each do |key, value|
-      s.send("#{key}=", value)
-    end
+        hash.each { |k,v| s.instance_variable_set("@#{k}",v) }
     s.save
   end
 
