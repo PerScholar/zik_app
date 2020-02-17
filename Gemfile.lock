@@ -111,9 +111,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 1.17)
   nokogiri (~> 1.10)
+  pastel (~> 0.7.3)
   terminal-table (~> 1.8)
   tty (~> 0.10.0)
+  tty-font (~> 0.4.0)
 
 BUNDLED WITH
    1.17.3
