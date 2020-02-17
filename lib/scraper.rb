@@ -9,36 +9,20 @@ class Scraper
   end
 
   def scrape_list
-    list = {}
-    @doc_list = @doc.search('h3.c-list__title')
-    list_detail = @doc.search('div.c-list__lead.c-content')
-    list_arr = []
-    detail_arr = []
-
+    list_info = @doc.css('h3.c-list__title')
+    list_details = @doc.css("div.c-list__lead.c-content")
     50.times { |i|
-      list_arr << @doc_list[i].text.chomp.strip
-      detail_arr << list_detail[i+1].text.chomp.strip
-      list[(i-50).abs] = list_arr[i].split(',')
-  
-      list.sort.to_h.each { |k,v|
-        hash = {}
-        hash["details"] = detail_arr[(k.to_i-50).abs]
-
-
-
-        Song.instantiate_from_hash(hash)
-    
-    
-    
-    
-    
-      }
-  
-  
-  
-     }
-   puts list_arr
-
-
+      hash = {}
+      idx = (i - 49).abs
+      data =  list_details[idx+1].css('p')
+      hash["rank"] = i + 1
+      hash["title"] = list_info[idx].text.strip.split(',')[1..-1].join(' ')
+      hash["band"] = list_info[idx].text.strip.split(',')[0]
+      hash["details"] = data[1].text.strip
+      hash["writers"] = data.text.split(": ")[1][0...-9].strip
+      hash["producers"] = data.text.split(": ")[2][0..-10].strip
+      hash["release_date"] = data.text.split(": ")[3].split(',')[0].strip
+      Song.instantiate_from_hash(hash)
+    }
   end
 end

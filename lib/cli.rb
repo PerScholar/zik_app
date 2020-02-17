@@ -10,9 +10,8 @@ class Cli
     puts <<-DOC.gsub /^\s*/, ''
         1. View full list
         2. Search
-        3. About the list
-        4. Credits
-        5. Exit
+        3. Credits
+        4. Exit
     DOC
     puts 'Choose an option: '
   end
@@ -44,20 +43,14 @@ class Cli
     input = gets.strip
     case input
     when '1'
-      Song.songs.each { |s|
-        puts "#{s.rank}: #{s.title}, By #{s.band}."
-      }
+      Song.songs.each { |s| puts "#{s.rank}: #{s.title},  #{s.band}" }
       puts "\n"
       detail_menu
     when '2'
       search_menu
     when '3'
-      Song.songs.each { |s|
-        puts "#{s.rank}, #{s.title},  #{s.band}"
-      }
+      puts "Info source: https://www.rollingstone.com/music/music-lists/500-greatest-songs-of-all-time-151127/?list_page=10#list-item-50"
     when '4'
-      puts '4'
-    when '5'
       exit
     else
       puts 'Invalid entry!'
@@ -116,11 +109,10 @@ class Cli
       puts return_val
     else
       hash = searched_band.find_by_name
-      hash.each { |k, v| puts "#{k}: #{v[0]}, By #{v[1]}." }
+      hash.each { |k, v| puts "#{k}: #{v[0]}, by #{v[1]}." }
     end
     puts "\n"
     search_menu
-    # File.open("log.txt", "a") { |f| f.write "#{Time.now} - Rankings of \"#{searched_artist.name}:\" \n #{searched_artist.albums}\n" }
   end
 
   def search_by_song
@@ -135,14 +127,11 @@ class Cli
       puts return_val
     else
       return_val.each { |v|
-        puts "Rank: #{v[0]}"
-        puts "Band: #{v[1]}"
+        puts "#{v[0]}: #{v[1]}"
       }
-
     end
     puts "\n"
     search_menu
-    # File.open("log.txt", "a") { |f| f.write "#{Time.now} - Rankings of \"#{searched_artist.name}:\" \n #{searched_artist.albums}\n" }
   end
 
   def disp_detail
@@ -150,18 +139,6 @@ class Cli
     puts "Enter rank: (1-50)"
     input = gets.strip.to_i
     if (input.between?(1,50))
-      #arr = @detail[input-1]
-      #rows = []
-      #rows[0] = ['','','','','']
-      #rows[1] = ["No. #{input}",arr[7...arr.index("Producer")],arr[arr.index("Producer")...arr.index("Released")],arr[arr.index("Released")...arr.index(",")],arr[arr.index(",")...arr.index("weeks")]]
-      #rows =[[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5]]
-      #rows[2] = ['','','','','']
-      #table_one = Terminal::Table.new :headings => ['Rank:','Writer:', 'Producer:', 'Released:', 'Record Company:'], :rows => rows
-      #puts table_one
-      #table_two = Terminal::Table.new :headings => ["","",""], :rows => [["","",""],["",arr[arr.index("No.")...-1],""],[""]]
-      #puts table_two
-      #puts arr[arr.index("No.")...-1]
-      #puts @detail[input-1]
       puts Song.songs[input-1].title
       puts ""
       puts "Written by: #{Song.songs[input-1].writers}."
@@ -170,7 +147,7 @@ class Cli
       puts ""
       puts "Released on: #{Song.songs[input-1].release_date}."
       puts ""
-      puts Song.songs[input-1].detail
+      puts Song.songs[input-1].details
       puts ""
       detail_menu
     else
@@ -183,7 +160,7 @@ class Cli
     puts "Enter rank: (1-50)"
     input = gets.strip.to_i
     if (input.between?(1,50))
-      puts "#{Song.songs[input-1].title}, By #{Song.songs[input-1].band}."
+      puts "No. #{input}: #{Song.songs[input-1].title}, by #{Song.songs[input-1].band}."
       puts "\n"
       search_menu
     else
@@ -192,23 +169,3 @@ class Cli
   end
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-end
