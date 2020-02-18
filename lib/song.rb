@@ -17,7 +17,7 @@ class Song
     self
   end
   
-  def Song.find_by_song(searched_song)
+  def self.find_by_song(searched_song)
     puts searched_song.downcase
     arr = []
     @@songs.each { |s|

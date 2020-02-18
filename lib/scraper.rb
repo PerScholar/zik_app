@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Scraper
   attr_accessor :doc
   def init
