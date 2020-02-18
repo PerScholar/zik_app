@@ -164,7 +164,7 @@ sleep 1
 
   def search_by_song
     puts ""
-    puts "Let's find the rankings of your favorite song in our top-50 list: "
+    puts "Let's find the ranking of your favorite song in our top-50 list: "
     print "Enter the song title: "
     input = gets.strip
     searched_song = input
