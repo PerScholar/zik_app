@@ -16,10 +16,12 @@ class Scraper
       hash["rank"] = i + 1
       hash["title"] = list_info[idx].text.strip.split(',')[1..-1].join(' ')
       hash["band"] = list_info[idx].text.strip.split(',')[0]
-      hash["details"] = data[1].text.strip
-      hash["writers"] = data.text.split(": ")[1][0...-9].strip
-      hash["producers"] = data.text.split(": ")[2][0..-10].strip
-      hash["release_date"] = data.text.split(": ")[3].split(',')[0].strip
+      k = idx == 41 ? 2 : 1
+      hash["details"] = data[k].text.strip
+      idx_end = data.text.split(":")[1].include?("Producers") ? -9 : -8
+      hash["writers"] = data.text.split(":")[1][0...idx_end].strip
+      hash["producers"] = data.text.split(":")[2][0...-8].strip
+      hash["release_date"] = data.text.split(":")[3].split(',')[0].strip
       Song.instantiate_from_hash(hash)
     }
   end
