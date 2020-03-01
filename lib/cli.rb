@@ -188,6 +188,8 @@ sleep 1
     if (input.between?(1,50))
       puts Song.songs[input-1].title
       puts ""
+      puts "Performed by: #{Song.songs[input-1].band}."
+      puts ""
       puts "Written by: #{Song.songs[input-1].writers}."
       puts ""
       puts "Produced by: #{Song.songs[input-1].producers}."
@@ -215,4 +217,3 @@ sleep 1
     end
   end
 end
-
