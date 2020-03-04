@@ -17,6 +17,7 @@ class Scraper
       hash["title"] = list_info[idx].text.strip.split(',')[1..-1].join(' ')
       hash["band"] = list_info[idx].text.strip.split(',')[0]
       k = idx == 41 ? 2 : 1
+      end_idx = -1
       data.each_with_index { |p,i| end_idx = i if p.text.strip.include?('Appears') }
       hash["details"] = data[k...end_idx].text.strip
       idx_end = data.text.split(":")[1].include?("Producers") ? -9 : -8
